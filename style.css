@@ -1,0 +1,408 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*,
+*:after,
+*:before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: black;
+}
+
+:root {
+    font-size: 62.5%;
+    
+    --primary-font: 2.2rem;
+    --secondary-font: 1.4rem;
+    --subtitle-font: 1.3rem;
+    
+    --bg-button: #D6D6D6ff;
+    --bg-nav: #fff;
+    --fill-svg: #292A2B;
+    
+    --svg-size-1: 2.2rem;
+    --svg-size-2: 2rem;
+    
+    --clr-svg-link: #292A2B;
+    --border-logo: #2B213D;
+    --bg-gradient: linear-gradient(180deg, #D6D6D6ff 2%, #fff 6%);         
+    --search-bg: #682FD8;
+    --search-border: black;
+    --search-border-hover: #7F52D8;
+    --input-bg: #FCFCFC;
+    
+    --primary-font-clr: #292A2B;
+    
+    --file-name-bg: #F4F4F4;
+    --file-name-odd-bg: #fff;
+    
+    --file-name-svg-bg: #dddddd;
+    --file-name-svg-odd-bg: #E8E8E8;
+    
+    --green-svg-fill: #008418;
+    --red-svg-fill: #EB0000;
+    
+    --file-content-bg: #fff;
+    --file-content-border: #dddddd;
+    --border-left-green: black;
+    --border-bottom: black;
+    
+    --box-h-clr: black;
+    --box-p-clr: black;
+    --box-name-p-clr: black;
+    --file-name-h2-clr: black;
+}
+
+
+html[data-theme="dark"] {
+    --primary-font: 2.2rem;
+    --secondary-font: 1.4rem;
+    --subtitle-font: 1.3rem;
+    
+    --bg-button: #313C58;
+    --bg-nav: #1C2335;
+    --fill-svg: #fff;
+    
+    --svg-size-1: 2.2rem;
+    --svg-size-2: 2rem;
+    
+    --clr-svg-link: #FFF;
+    --border-logo: #253147;
+    --bg-gradient: linear-gradient(180deg, #03060D 4%, #0D1017 6%);
+    --search-bg: #7A36FB;
+    --search-border: #525453;
+    --search-border-hover: #897397;
+    --input-bg: #F4F4F4;
+    
+    --primary-font-clr: #fff;
+    
+    --file-name-bg: #1D2027;
+    --file-name-odd-bg: #252831;
+    
+    --file-name-svg-bg: #12161F;
+    --file-name-svg-odd-bg: #191C2F;
+    
+    --green-svg-fill: #238636;
+    --red-svg-fill: #CD0301;
+    
+    --file-content-bg: #32415E;
+    --file-content-border: transparent;
+    --border-left-green: #238636;
+    --border-bottom: #4C4E4D;
+    
+    --box-h-clr: #CBCFD8;
+    --box-p-clr: #AAAFB3;
+    --box-name-p-clr: #F1F1F1;
+    --file-name-h2-clr: #F0F0F0;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul, li {
+    list-style: none;
+}
+
+button, input {
+    all: unset;
+}
+
+body {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    height: 100%;
+}
+
+header {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 1rem 2rem;
+    width: 100vw;
+}
+
+header nav {
+    background: var(--bg-nav);
+    width: 100vw;
+}
+
+header .nav-ul {
+    display: flex;
+    justify-content: space-between;
+    place-items: center;
+    
+    max-width: 65rem;
+    margin: 0 auto;
+    padding: 1rem;
+    
+    & h1 {
+        font-size: var(--primary-font);
+        color: var(--primary-font-clr);
+    }
+    
+    & button {
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+        border-radius: 50rem;
+        background: var(--bg-button);
+    }
+    
+    & button svg {
+        width: var(--svg-size-1);
+        height: var(--svg-size-1);
+        
+        fill: var(--fill-svg);
+    }
+}
+
+header .header-logo {
+    display: grid;
+    grid-template-rows: auto auto;
+    place-items: center;
+    
+    margin-top: 3rem;
+    
+    & div {
+        width: 10rem;
+        height: 10rem;
+        
+        border-radius: 50rem;
+        border: 3px solid var(--border-logo);
+        overflow: hidden;
+    }
+    
+    & div img {
+        width: 100%;
+    }
+    
+    & h1 a {
+        display: flex;
+        place-items: center;
+        gap: .5rem;
+        
+        font-size: var(--primary-font);
+        color: var(--primary-font-clr);
+    }
+    
+    & h1 a svg {
+        width: var(--svg-size-1);
+        height: var(--svg-size-1);
+        
+        stroke: var(--clr-svg-link);
+        fill: none;
+    }
+}
+
+header .header-search:hover {
+    border: 1px solid var(--search-border-hover);
+}
+
+header .header-search {
+    display: flex;
+    width: 70%;
+    max-width: 40rem;
+    margin: 0 auto 3rem auto;
+    
+    background: var(--input-bg);
+    border: 1px solid var(--search-border);
+    
+    border-radius: .8rem;
+    overflow: hidden;
+    cursor: pointer;
+    
+    & input {
+        width: 100%;
+        padding: 1rem;
+    }
+    
+    & input::placeholder, & input {
+        font-size: var(--subtitle-font);
+    }
+    
+    & div {
+        display: inherit;
+        place-items: center;
+        
+        background: var(--search-bg);
+        padding: 1rem;
+    }
+    
+    & div svg {
+        width: var(--svg-size-2);
+        height: var(--svg-size-2);
+    }
+}
+
+main {
+    max-width: 60rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+main #files-container {
+    margin: 0 1rem;
+    border: 1px solid var(--search-border);
+    border-radius: .8rem;
+    overflow: hidden;
+}
+
+main .file-entry:nth-child(odd) {
+    background: var(--file-name-odd-bg);
+    
+    & .file-name div {
+        background: var(--file-name-svg-odd-bg);
+    }
+    
+    & .file-name h2 {
+        background: var(--file-name-odd-bg);
+    }
+}
+
+main .file-entry.active {
+    & .file-name div {
+        border-radius: 0 0 1rem 0;
+    }
+    
+    & .file-name svg {
+        transform: rotate(180deg);
+        fill: var(--red-svg-fill);
+    }
+}
+
+main .file-entry {
+    display: grid;
+    grid-template-rows: auto auto;
+    background: var(--file-name-bg);
+    
+    & .file-name {
+        display: flex;
+        overflow: hidden;
+    }
+    
+    & .file-name div {
+        background: var(--file-name-svg-bg);
+        padding: 1rem;
+    }
+    
+    & .file-name h2 {
+        width: 100%;
+        padding: 1rem 1rem 1rem .5rem;
+        background: var(--file-name-bg);
+        font-size: var(--secondary-font);
+        color: var(--file-name-h2-clr);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    
+    & .file-name svg {
+        width: var(--svg-size-2);
+        height: var(--svg-size-2);
+        
+        fill: var(--green-svg-fill);
+        transition: all 400ms ease;
+    }
+    
+    /*---------*/
+    
+    & .file-content {
+        display: none;
+        grid-templates-rows: auto auto;
+        
+        margin: 1rem;
+        border-radius: .8rem;
+        overflow: hidden;
+        
+        background: var(--file-content-bg);
+        border: 1px solid var(--file-content-border);
+    }
+    
+    & .file-content .box:nth-child(1) p {
+        font-weight: 600;
+        color: var(--box-name-p-clr);
+    }
+    
+    & .file-content p, .file-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    & .file-content .box {
+        display: grid;
+        grid-template-columns: auto 3fr;
+    }
+    
+    & .file-content .box h3 {
+        border-left: .6rem solid var(--border-left-green);
+        min-width: 6rem;
+        padding: 1rem;
+        
+        color: var(--box-h-clr);
+    }
+    
+    & .file-content .box p {
+        display: grid;
+        place-content: center;
+        justify-content: start;
+        
+        word-break: break-word;
+        padding: 1rem;
+        
+        color: var(--box-p-clr);
+    }
+    
+    & .file-content .content-name {
+        border-bottom: 1px solid var(--border-bottom);
+    }
+}
+
+/************************/
+/* Loading Page Effect*/
+
+.file-entry.loading {
+    & h2 {
+        transform: translateX(-100%);
+        background-image: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0,
+            rgba(255, 255, 255, 0.2) 20%,
+            rgba(255, 255, 255, 0.6) 60%,
+            rgba(255, 255, 255, 0)
+        ) !important;
+
+        animation: loading 1.6s infinite;
+    }
+}
+
+@keyframes loading {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/************************/
+
+@media screen and (min-width: 540px) {
+    :root {
+        --primary-font: 2.4rem;
+        --secondary-font: 1.6rem;
+        --subtitle-font: 1.5rem;
+        
+        --svg-size-1: 2.4rem;
+        --svg-size-2: 2.2rem;
+    }
+}
+
+@media screen and (min-width: 940px) {
+    :root {
+        --primary-font: 2.8rem;
+        --secondary-font: 2rem;
+        --subtitle-font: 1.9rem;
+        
+        --svg-size-1: 3rem;
+        --svg-size-2: 2.4rem;
+    }
+}
+
+
