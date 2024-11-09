@@ -1,5 +1,7 @@
+/* Poppins Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+/* Resets */
 *,
 *:after,
 *:before {
@@ -7,19 +9,31 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    color: black;
 }
 
+a {
+    text-decoration: none;
+}
+
+ul, li {
+    list-style: none;
+}
+
+button, input {
+    all: unset;
+}
+
+/* Vars of Light theme */
 :root {
     font-size: 62.5%;
     
     --primary-font: 2.2rem;
     --secondary-font: 1.4rem;
     --subtitle-font: 1.3rem;
-    
+    --input-placeholder-font: 1.3rem;
     --bg-button: #D6D6D6ff;
     --bg-nav: #fff;
-    --fill-svg: #292A2B;
+    --fill-svg: red;
     
     --svg-size-1: 2.2rem;
     --svg-size-2: 2rem;
@@ -54,26 +68,20 @@
     --file-name-h2-clr: black;
 }
 
-
+/* Vars of dark theme*/
 html[data-theme="dark"] {
-    --primary-font: 2.2rem;
-    --secondary-font: 1.4rem;
-    --subtitle-font: 1.3rem;
-    
     --bg-button: #313C58;
     --bg-nav: #1C2335;
     --fill-svg: #fff;
-    
-    --svg-size-1: 2.2rem;
-    --svg-size-2: 2rem;
     
     --clr-svg-link: #FFF;
     --border-logo: #253147;
     --bg-gradient: linear-gradient(180deg, #03060D 4%, #0D1017 6%);
     --search-bg: #7A36FB;
     --search-border: #525453;
-    --search-border-hover: #897397;
-    --input-bg: #F4F4F4;
+    --search-border-hover: #DCBEF4;
+    
+    --input-bg: #141B23;
     
     --primary-font-clr: #fff;
     
@@ -97,18 +105,7 @@ html[data-theme="dark"] {
     --file-name-h2-clr: #F0F0F0;
 }
 
-a {
-    text-decoration: none;
-}
-
-ul, li {
-    list-style: none;
-}
-
-button, input {
-    all: unset;
-}
-
+/* Styles */
 body {
     background: var(--bg-gradient);
     min-height: 100vh;
@@ -202,7 +199,7 @@ header .header-search:hover {
 header .header-search {
     display: flex;
     width: 70%;
-    max-width: 40rem;
+    max-width: 35rem;
     margin: 0 auto 3rem auto;
     
     background: var(--input-bg);
@@ -215,10 +212,11 @@ header .header-search {
     & input {
         width: 100%;
         padding: 1rem;
+        color: var(--primary-font-clr);
     }
     
     & input::placeholder, & input {
-        font-size: var(--subtitle-font);
+        font-size: var(--input-placeholder-font);
     }
     
     & div {
@@ -357,8 +355,8 @@ main .file-entry {
     }
 }
 
-/************************/
-/* Loading Page Effect*/
+/*******************************/
+/* Efeito de loading da página */
 
 .file-entry.loading {
     & h2 {
@@ -381,16 +379,29 @@ main .file-entry {
   }
 }
 
-/************************/
+/*****************************/
+/* Responsividade dos textos */
 
 @media screen and (min-width: 540px) {
     :root {
         --primary-font: 2.4rem;
         --secondary-font: 1.6rem;
+        --input-placeholder-font: 1.6rem;
         --subtitle-font: 1.5rem;
         
         --svg-size-1: 2.4rem;
-        --svg-size-2: 2.2rem;
+        --svg-size-2: 2.8rem;
+    }
+    
+    header .header-search {
+        height: 5rem;
+        
+        & input {
+            padding: 1rem 2rem;
+        }
+        & div {
+            padding: 1rem;
+        }
     }
 }
 
@@ -398,11 +409,6 @@ main .file-entry {
     :root {
         --primary-font: 2.8rem;
         --secondary-font: 2rem;
-        --subtitle-font: 1.9rem;
-        
-        --svg-size-1: 3rem;
-        --svg-size-2: 2.4rem;
+        --subtitle-font: 1.7rem;
     }
 }
-
-
