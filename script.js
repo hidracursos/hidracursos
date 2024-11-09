@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
 
-
 //---------- Renderizar os cursos, ids e barra de pesquisa ---------- //
 
 let rendering = false;
@@ -51,7 +50,7 @@ let loadedData = [];     // Dados já carregados na página
 let searchResults = [];  // Armazena os resultados da pesquisa
 let startIndex = 0;      // Índice de início para carregamento
 const BATCH_SIZE = 100;  // Quantidade de linhas a serem carregadas por vez
-let isSearching = false; // Flag para verificar se estamos em modo de busca
+let isSearching = false; // Flag para verificar se esta em modo de busca
 
 // Função para carregar os dados
 async function loadFileData() {
@@ -65,7 +64,7 @@ async function loadFileData() {
             const [fileName, ids] = line.split('||').map(part => part.trim());
             return {
                 name: fileName,
-                ids: ids.replace(/\s*,\s*/g, ', ') // Remove espaços ao redor das vírgulas
+                ids: ids.replace(/\s*,\s*/g, ', ')
             };
         });
 
@@ -85,22 +84,32 @@ async function loadFileData() {
 
 // Função para carregar o próximo lote de dados
 function loadNextBatch() {
-    if (rendering || isSearching) return; // Evita carregamento duplicado ou durante busca
+    if (rendering || isSearching) return;
 
     const endIndex = startIndex + BATCH_SIZE;
-    const batch = filesData.slice(startIndex, endIndex); // Pega o próximo lote de dados
+    const batch = filesData.slice(startIndex, endIndex);
 
     renderFiles(batch);
-    loadedData = [...loadedData, ...batch]; // Atualiza os dados já carregados
-    startIndex = endIndex; // Atualiza o índice de início para o próximo lote
+    loadedData = [...loadedData, ...batch];
+    startIndex = endIndex;
 }
 
 // Função para renderizar os arquivos no container
-function renderFiles(data, reset = true) {
+function renderFiles(data, reset = true, message = '') {
     const container = document.getElementById('files-container');
     if (reset) {
-        container.innerHTML = ''; // Limpa o container se for um reset (ex: nova pesquisa)
+        container.innerHTML = '';
     }
+
+    if (data.length === 0) {
+        // se a lista estiver vazia
+        const noResultDiv = document.createElement('div');
+        noResultDiv.classList.add('no-result');
+        noResultDiv.innerText = message;
+        container.appendChild(noResultDiv);
+        return;
+    }
+
     data.forEach(file => {
         const fileDiv = document.createElement('div');
         fileDiv.classList.add('file-entry');
@@ -112,11 +121,7 @@ function renderFiles(data, reset = true) {
         fileNameDiv.innerHTML = `
             <div>
                 <svg width="14px" height="14px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" fill=""></path>
-                    </g>
+                    <path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" fill=""></path>
                 </svg>
             </div>
             <h2>${file.name}</h2>
@@ -165,13 +170,13 @@ function handleScroll() {
     const scrollPosition = window.innerHeight + window.scrollY;
     const pageHeight = document.documentElement.scrollHeight;
 
-    if (scrollPosition >= pageHeight - 200 && !isSearching) { // Ajuste o valor conforme necessário
-        loadNextBatch(); // Carrega mais dados normais
+    if (scrollPosition >= pageHeight - 200 && !isSearching) {
+        loadNextBatch();
     }
 }
 
 // Adiciona o event listener para o scroll
-window.addEventListener('scroll', debounce(handleScroll, 100)); // Use debounce para evitar chamadas excessivas
+window.addEventListener('scroll', debounce(handleScroll, 100));
 
 // Função debounce
 function debounce(func, delay) {
@@ -183,22 +188,27 @@ function debounce(func, delay) {
 
 // Função de pesquisa
 function search(event) {
-    clearTimeout(debounceTimer); // Limpa o timer anterior
-    const input = event.target.value.toLowerCase();
+    clearTimeout(debounceTimer);
+    const input = event.target.value.trim().toLowerCase();
 
     debounceTimer = setTimeout(() => {
         if (input === '') {
-            isSearching = false; // Não está mais em busca
-            renderFiles(loadedData, true); // Restaura os dados carregados
+            isSearching = false;
+            renderFiles(loadedData, true);
             return;
         }
 
-        const results = fuse.search(input); // Supondo que fuse.js esteja configurado
+        const results = fuse.search(input);
         const filteredFiles = results.map(result => result.item);
 
-        isSearching = true; // Modo de busca ativo
-        renderFiles(filteredFiles, true); // Renderiza os resultados e limpa os dados anteriores
-    }, 1000); // Tempo de debounce
+        isSearching = true;
+
+        if (filteredFiles.length > 0) {
+            renderFiles(filteredFiles, true);
+        } else {
+            renderFiles([], true, 'Nenhum resultado encontrado.');
+        }
+    }, 1000);
 }
 
 document.getElementById('search-input').addEventListener('input', search);
